@@ -32,13 +32,16 @@ public class PigLatin {
     List<String> diaphrams = Arrays.asList(array);
     String punctuation = "";
     String newS = "";
+    String pending = "";
     for (int i = 0; i < s.length(); i++){
       if ("abcdefghijklmnopqrstuvwxyz1234567890".indexOf(s.toLowerCase().charAt(i)) != -1){
-        newS += s.charAt(i);
+        newS += pending + s.charAt(i);
+        pending = "";
       }else{
-        punctuation += s.charAt(i);
+        pending += s.charAt(i);
       }
     }
+    punctuation = pending;
     s = newS;
     if ("abcdefghijklmnopqrstuvwxyz".indexOf(s.toLowerCase().charAt(0)) == -1){
       return s;
@@ -64,10 +67,12 @@ public class PigLatin {
       for(int i = 0; i < currentLine.length(); i++){
         if (currentLine.charAt(i) == ' '){
           convertedLine += pigLatinBest(currentWord) + " ";
+          currentWord = "";
         }else{
           currentWord += currentLine.charAt(i);
         }
       }
+      convertedLine += pigLatinBest(currentWord);
       System.out.println(convertedLine);
     }
   }
