@@ -9,9 +9,14 @@ public class MakeStars {
       String convertedLine = "";
       for(int i = 0; i < currentLine.length(); i++){
         if (currentLine.charAt(i) != ' '){
+          if (space && convertedLine != "") {
+            convertedLine+= " ";
+          }
+
           convertedLine += "*";
+          space = false;
         }else{
-          convertedLine += " ";
+          space = true;
         }
       }
       System.out.println(convertedLine);
