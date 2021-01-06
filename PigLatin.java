@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class PigLatin {
   public static String pigLatinSimple(String s){
@@ -12,7 +12,8 @@ public class PigLatin {
   }
 
   public static String pigLatin(String s){
-    ArrayList<String> diaphrams = Arrays.asList({"bl", "br", "ch", "ck", "cl", "cr", "dr", "fl", "fr", "gh", "gl", "gr", "ng", "ph", "pl", "pr", "qu", "sc", "sh", "sk", "sl", "sm", "sn", "sp", "st", "sw", "th", "tr", "tw", "wh", "wr"});
+    String[] array = {"bl", "br", "ch", "ck", "cl", "cr", "dr", "fl", "fr", "gh", "gl", "gr", "ng", "ph", "pl", "pr", "qu", "sc", "sh", "sk", "sl", "sm", "sn", "sp", "st", "sw", "th", "tr", "tw", "wh", "wr"};
+    List<String> diaphrams = Arrays.asList(array);
     if ("AEIOUaeiou".indexOf(s.charAt(0)) != -1) {
       return (s.substring(0, s.length())+ "hay").toLowerCase();
     }else if (s.length() >= 3 && (diaphrams.indexOf(s.substring(0,2)) != -1)){
@@ -27,14 +28,15 @@ public class PigLatin {
   }
 
   public static String pigLatinBest(String s){
-    ArrayList<String> diaphrams = Arrays.asList({"bl", "br", "ch", "ck", "cl", "cr", "dr", "fl", "fr", "gh", "gl", "gr", "ng", "ph", "pl", "pr", "qu", "sc", "sh", "sk", "sl", "sm", "sn", "sp", "st", "sw", "th", "tr", "tw", "wh", "wr"});
+    String[] array = {"bl", "br", "ch", "ck", "cl", "cr", "dr", "fl", "fr", "gh", "gl", "gr", "ng", "ph", "pl", "pr", "qu", "sc", "sh", "sk", "sl", "sm", "sn", "sp", "st", "sw", "th", "tr", "tw", "wh", "wr"};
+    List<String> diaphrams = Arrays.asList(array);
     String punctuation = "";
     String newS = "";
     for (int i = 0; i < s.length(); i++){
       if ("abcdefghijklmnopqrstuvwxyz1234567890".indexOf(s.toLowerCase().charAt(i)) != -1){
         newS += s.charAt(i);
       }else{
-        punctuation += s.charAt(i)
+        punctuation += s.charAt(i);
       }
     }
     s = newS;
@@ -50,6 +52,23 @@ public class PigLatin {
       return (s.substring(1, s.length()) + s.substring(0, 1) + "ay").toLowerCase() + punctuation;
     }else{
       return (s.substring(0, 1) + "ay").toLowerCase() + punctuation;
+    }
+  }
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+    while (scan.hasNextLine()){
+      boolean space = false;
+      String currentLine = scan.nextLine();
+      String convertedLine = "";
+      String currentWord = "";
+      for(int i = 0; i < currentLine.length(); i++){
+        if (currentLine.charAt(i) == ' '){
+          convertedLine += pigLatinBest(currentWord) + " ";
+        }else{
+          currentWord += currentLine.charAt(i);
+        }
+      }
+      System.out.println(convertedLine);
     }
   }
 }
